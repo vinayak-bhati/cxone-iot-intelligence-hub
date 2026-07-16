@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CXone IoT Intelligence Hub | Sparkathon 2026</title>
-  <meta name="description" content="CXone IoT Intelligence Hub — IoT devices proactively trigger CXone AI Agents to detect, diagnose and resolve service events before the customer ever needs to call. Sparkathon 2026." />
+  <meta name="description" content="IoT devices proactively emit fault events where CXOne AI Agents detect, diagnose, and resolve issues before customers ever need to call." />
   <link rel="stylesheet" href="styles.css" />
   <!-- Lucide icons via CDN — degrades gracefully if blocked -->
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" onerror="window._lucideUnavailable=true;"></script>
@@ -57,11 +57,9 @@
   <section id="overview">
 
     <div class="hero-block reveal">
-      <p class="hero-credit">Brij Mohan, Vinayak Bhati &nbsp;|&nbsp; Sparkathon 2026</p>
       <h1 class="hero-headline"><em>CXone</em><br />IoT Intelligence Hub</h1>
       <p class="hero-subheadline">
-        IoT devices proactively trigger CXOne AI Agents to detect, diagnose and resolve service events —
-        before the customer ever needs to call.
+        IoT devices proactively emit fault events where CXOne AI Agents detect, diagnose, and resolve issues before customers ever need to call.
       </p>
       <div class="hero-ctas">
         <button class="btn btn-primary" data-scroll-to="#the-issue">
@@ -472,16 +470,12 @@
     <div class="collapsible-body" id="arch-detailed-body">
       <div class="arch-image-wrap">
         <img
-          src="assets/architecture-detailed.png"
+          src="assets/final_architecture.png"
           alt="CXone Device Signal Bridge — Detailed Architecture Diagram"
           loading="lazy"
           onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
         />
-        <div class="arch-placeholder" style="display:none;">
-          <i data-lucide="image" style="width:32px;height:32px;margin:0 auto 12px;display:block;color:#CBD5E0;" aria-hidden="true"></i>
-          <strong>Detailed Architecture Diagram</strong><br />
-          Drop <code>architecture-detailed.png</code> into <code>docs/assets/</code> to display it here.
-        </div>
+       
       </div>
     </div>
 
@@ -519,7 +513,7 @@
         <p class="service-desc">
           A small local service that mirrors NICE's real Agentic Engagement Plane contracts
           (Thread creation, Engagement Path routing, Handover, Context API) closely enough to
-          prove the pattern, without needing production AEP access for a 48-hour hackathon.
+          prove the pattern.
         </p>
       </div>
 
@@ -742,7 +736,7 @@ cd cxone-iot-intelligence-hub</pre>
     <div class="presentation-download reveal">
       <div class="dl-title">Sparkathon 2026 — CXone IoT Intelligence Hub</div>
       <div class="dl-sub">CXone IoT Intelligence Hub · Brij Mohan, Vinayak Bhati</div>
-      <a class="btn btn-download" href="assets/presentation.pptx" download="CXone_Device_Signal_Bridge_Sparkathon2026.pptx">
+      <a class="btn btn-download" href="assets/IoT_CXOne_Sparkathon_Final_Deck.pptx" download="CXone_Device_Signal_Bridge_Sparkathon2026.pptx">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download Presentation (.pptx)
       </a>
@@ -762,15 +756,7 @@ cd cxone-iot-intelligence-hub</pre>
       <div id="slide-dots" style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap;"></div>
       <div id="slide-counter" style="font-size:12px;color:var(--text-muted);margin-top:8px;"></div>
     </div>
-
-    <p class="reveal" style="font-size:13px;color:var(--text-muted);margin-top:16px;text-align:center;">
-      To enable the in-page slide viewer: export deck slides as PNG images named
-      <code class="inline-code">slide-01.png</code>, <code class="inline-code">slide-02.png</code>, …
-      and drop them into <code class="inline-code">docs/assets/slides/</code>.
-    </p>
-
   </section>
-
 </main>
 
 <!-- ══════════════════════════════════════════════════════════
