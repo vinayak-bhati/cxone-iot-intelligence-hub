@@ -1,0 +1,20 @@
+{
+  "name": "event-normalizer",
+  "version": "1.0.0",
+  "description": "CXone Device Signal Bridge — IoT Event Normalizer. Receives raw device/vendor fault payloads, validates, normalises to AEP event schema, publishes to AEP ingestion queue, and increments usage counter.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "axios": "^1.7.2",
+    "express": "^4.19.2",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

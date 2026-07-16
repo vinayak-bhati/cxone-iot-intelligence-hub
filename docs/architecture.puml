@@ -1,0 +1,154 @@
+@startuml C1_Integration_Fabric_CDP_CDO
+' rev: 2026-05-08T07:20
+
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName Arial
+skinparam defaultFontSize 13
+skinparam ArrowColor #534AB7
+skinparam ArrowThickness 1.5
+
+skinparam rectangle {
+  BorderThickness 1
+  RoundCorner 10
+}
+
+' ── Colour palette ──────────────────────────────
+' Purple  #EEEDFE / #534AB7  → Integration Fabric
+' Teal    #E1F5EE / #0F6E56  → CDP, RDS, S3
+' Amber   #FAEEDA / #854F0B  → CDO
+' Blue    #E6F1FB / #185FA5  → SDK, Workflow, Internal stream source
+' Coral   #FAECE7 / #993C1D  → Internal consumers
+' Gray    #F1EFE8 / #5F5E5A  → External sources, REST consumers
+
+' ════════════════════════════════════════════════
+' EXTERNAL DATA SOURCES
+' ════════════════════════════════════════════════
+package "External data sources" <<Rectangle>> #F1EFE8 {
+  rectangle "Salesforce\n<size:11>CRM</size>"           as SF   #F1EFE8;line:5F5E5A
+  rectangle "ServiceNow\n<size:11>ITSM / HR</size>"     as SNow #F1EFE8;line:5F5E5A
+  rectangle "CRM systems\n<size:11>HubSpot · SAP</size>" as CRM  #F1EFE8;line:5F5E5A
+  rectangle "SDK\n<size:11>Click · behaviour</size>"    as SDK  #E6F1FB;line:185FA5
+  rectangle "Webhooks\n<size:11>Event sources</size>"   as WH   #F1EFE8;line:5F5E5A
+  rectangle "Other sources\n<size:11>Files · APIs</size>" as OTH #F1EFE8;line:5F5E5A
+}
+
+' ════════════════════════════════════════════════
+' INTERNAL STREAM SOURCES
+' ════════════════════════════════════════════════
+rectangle "Internal stream source\n<size:11>UnifiedStream, CTI events</size>" as US #E6F1FB;line:185FA5
+
+' ════════════════════════════════════════════════
+' INTEGRATION FABRIC + WORKFLOW
+' ════════════════════════════════════════════════
+rectangle "Integration Fabric\n<size:11>Auth · Connectors · MCP gateway · token broker · routing · resilience</size>" as INTF #EEEDFE;line:534AB7
+
+rectangle "Workflow\n<size:11>via IF</size>" as WF #E6F1FB;line:185FA5
+
+' ════════════════════════════════════════════════
+' CDP
+' ════════════════════════════════════════════════
+rectangle "Customer Data Platform (CDP)\n<size:11>Unify · enrich · PII / PHI / PCI · profile stitching</size>" as CDP #E1F5EE;line:0F6E56
+
+' ════════════════════════════════════════════════
+' RDS + CDP EVENT STREAM + S3 BATCH STORE
+' ════════════════════════════════════════════════
+rectangle "RDS Aurora Postgres\n<size:11>Persistent store · JSONB</size>" as RDS #E1F5EE;line:0F6E56
+
+rectangle "S3 Bucket\n<size:11>Batch profile snapshots</size>" as S3Bucket #E1F5EE;line:0F6E56
+
+rectangle "CDP Event Stream\n<size:11>Profile · enrichment events</size>" as CDPES #EEEDFE;line:534AB7
+
+' ════════════════════════════════════════════════
+' CDP INTERNAL CONSUMERS
+' ════════════════════════════════════════════════
+rectangle "Internal consumers\n<size:11>Signal · Journey · Charter</size>" as CDPIC #FAECE7;line:993C1D
+
+' ════════════════════════════════════════════════
+' CDO
+' ════════════════════════════════════════════════
+rectangle "Custom Data Object (CDO)\n<size:11>Canonical transform · field hydrator · PII / PHI / PCI · event emitter · data store</size>" as CDO #FAEEDA;line:854F0B
+
+' ════════════════════════════════════════════════
+' CDO REST CONSUMERS
+' ════════════════════════════════════════════════
+rectangle "CDO REST consumers\n<size:11>On-demand REST · live Kinesis / Kafka</size>" as CDOR #F1EFE8;line:5F5E5A
+
+' ════════════════════════════════════════════════
+' CDO EVENT STREAM
+' ════════════════════════════════════════════════
+rectangle "CDO Event Stream\n<size:11>field hydrated · state changed · erased</size>" as CDOES #FAEEDA;line:854F0B
+
+' ════════════════════════════════════════════════
+' CDO INTERNAL STREAM CONSUMERS
+' ════════════════════════════════════════════════
+rectangle "Internal CDO stream consumers\n<size:11>Charter · Agent Signals · Recording</size>" as CDOIC #F1EFE8;line:5F5E5A
+
+' ════════════════════════════════════════════════
+' CONNECTIONS
+' ════════════════════════════════════════════════
+
+' External data stores ↔ Integration Fabric (SDK is push-only)
+SF   <--> INTF
+SNow <--> INTF
+CRM  <--> INTF
+SDK   --> INTF
+WH   <--> INTF
+OTH  <--> INTF
+
+' Internal stream source → Integration Fabric → CDP
+US --> INTF : ingest
+
+' Workflow ↔ IF
+'WF <--> INTF
+
+' IF → CDP (two protocols)
+INTF --> CDP : REST
+INTF --> CDP : Stream
+
+' IF → CDO (direct REST)
+INTF --> CDO : REST (direct)
+
+' CDP → RDS + CDP Event Stream + S3 batch store
+CDP --> RDS      : persist
+CDP --> CDPES    : stream
+CDP --> S3Bucket : batch publish
+
+' CDP → CDO (stream link)
+CDP --> CDO : stream
+
+' CDP Event Stream → internal consumers
+CDPES --> CDPIC
+
+' CDP Event Stream → external (via IF)
+CDPES --> INTF : external consumers\nroute via IF
+
+' CDP → internal consumers (batch read)
+CDP --> CDPIC : batch read
+
+CDPES --> WF : Rules
+WF --> INTF: ingest
+
+
+' S3 → external batch consumers (via IF)
+S3Bucket --> INTF : batch (external)
+
+' RDS → CDO (subset query)
+RDS ..> CDO : subset query
+
+' CDO internal produce loop
+CDO ..> CDO : produce / consume\n(internal)
+
+' CDO → REST consumers
+CDO --> CDOR : REST
+
+' CDO → CDO Event Stream
+CDO --> CDOES : stream
+
+' CDO Event Stream → internal stream consumers
+CDOES --> CDOIC
+
+' CDO Event Stream → external (via IF)
+CDOES --> INTF : external consumers\nroute via IF
+
+@enduml

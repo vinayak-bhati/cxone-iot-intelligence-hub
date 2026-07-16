@@ -1,0 +1,11 @@
+# Node dependencies
+node_modules/
+
+# Runtime logs
+logs/*.log
+
+# Local environment overrides
+**/env.local.json
+
+# Runtime PID tracking
+.pids

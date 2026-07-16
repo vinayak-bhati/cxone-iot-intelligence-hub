@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "device-fault-event",
+  "title": "DeviceFaultEvent",
+  "description": "Inbound payload from a vendor field-service agent (e.g. Salesforce FSL, ServiceNow FSM) describing a device fault.",
+  "type": "object",
+  "required": ["sourceAgent", "deviceId", "assetType", "faultCode", "severity", "customerId", "timestamp"],
+  "properties": {
+    "sourceAgent": {
+      "type": "string",
+      "description": "Originating field-service platform (e.g. salesforce-fsl, servicenow-fsm)",
+      "examples": ["salesforce-fsl", "servicenow-fsm"]
+    },
+    "deviceId": {
+      "type": "string",
+      "description": "Vendor-assigned device identifier",
+      "examples": ["AC-00421"]
+    },
+    "assetType": {
+      "type": "string",
+      "description": "Device category",
+      "examples": ["AirConditioner", "HVAC", "Refrigerator"]
+    },
+    "faultCode": {
+      "type": "string",
+      "description": "Vendor fault code",
+      "examples": ["SCHED-ANNUAL-SERVICE", "E99-COMPRESSOR-FAIL"]
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"],
+      "description": "Fault severity — drives triage routing"
+    },
+    "customerId": {
+      "type": "string",
+      "description": "CXone customer/contact identifier",
+      "examples": ["CUST-9182"]
+    },
+    "warrantyStatus": {
+      "type": "string",
+      "enum": ["ACTIVE", "EXPIRED", "UNKNOWN"],
+      "default": "UNKNOWN",
+      "description": "Device warranty status at time of fault"
+    },
+    "agentDiagnosis": {
+      "type": "string",
+      "description": "Free-text diagnosis from the vendor AI agent"
+    },
+    "recommendedAction": {
+      "type": "string",
+      "description": "Vendor agent recommended action",
+      "examples": ["dispatch_technician", "remote_reset", "monitor"]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 UTC timestamp of the fault event"
+    }
+  },
+  "additionalProperties": true
+}

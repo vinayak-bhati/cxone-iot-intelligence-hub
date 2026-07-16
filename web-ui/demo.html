@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CXone IoT Intelligence Hub — Sparkathon 2026</title>
+  <style>
+    /* ── Reset & base ─────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:  #0D1B3E;
+      --teal:  #00A896;
+      --gold:  #F4A261;
+      --green: #2D9C6E;
+      --red:   #C0392B;
+      --light: #F5F7FA;
+      --white: #FFFFFF;
+      --text:  #1A1A2E;
+      --muted: #6B7280;
+      --border:#DDE3EC;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 16px;
+      color: var(--text);
+      background: var(--light);
+      line-height: 1.55;
+    }
+
+    /* ── Hero ─────────────────────────────────────────────────────────────── */
+    .hero {
+      background: var(--navy);
+      color: var(--white);
+      padding: 52px 40px 44px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      background: var(--teal);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(26px, 4vw, 46px);
+      font-weight: 800;
+      line-height: 1.15;
+      max-width: 900px;
+      margin: 0 auto 14px;
+    }
+    .hero h1 span { color: var(--teal); }
+    .hero-sub {
+      font-size: 18px;
+      color: #A8B8D8;
+      max-width: 700px;
+      margin: 0 auto 36px;
+    }
+    .stat-row {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .stat-badge {
+      background: rgba(255,255,255,0.12);
+      border: 2px solid rgba(255,255,255,0.22);
+      border-radius: 10px;
+      padding: 14px 26px;
+      min-width: 170px;
+    }
+    .stat-badge .stat-num {
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--gold);
+      display: block;
+      line-height: 1;
+    }
+    .stat-badge .stat-label {
+      font-size: 13px;
+      color: #CBD5E0;
+      margin-top: 4px;
+    }
+
+    /* ── Section wrappers ─────────────────────────────────────────────────── */
+    .section { padding: 48px 40px; max-width: 1100px; margin: 0 auto; }
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 28px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid var(--teal);
+      display: inline-block;
+    }
+
+    /* ── How-it-works diagram ─────────────────────────────────────────────── */
+    .flow-diagram {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+    .flow-step {
+      flex: 1;
+      min-width: 140px;
+      background: var(--white);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 14px 16px;
+      text-align: center;
+      transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s;
+      position: relative;
+    }
+    .flow-step.active {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 4px rgba(0,168,150,0.2), 0 4px 20px rgba(0,168,150,0.3);
+      transform: translateY(-4px);
+    }
+    .flow-step.active-red {
+      border-color: var(--red);
+      box-shadow: 0 0 0 4px rgba(192,57,43,0.2), 0 4px 20px rgba(192,57,43,0.3);
+      transform: translateY(-4px);
+    }
+    .flow-step .step-icon { font-size: 32px; margin-bottom: 8px; }
+    .flow-step .step-label { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .flow-step .step-sub { font-size: 12px; color: var(--muted); }
+    .flow-step .step-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 20px;
+      margin-top: 8px;
+    }
+    .badge-new      { background: #FEF3E2; color: #854F0B; border: 1px solid #F4A261; }
+    .badge-existing { background: #E1F5EE; color: #0F6E56; border: 1px solid #00A896; }
+    .badge-extend   { background: #E8F5EE; color: #1A6B44; border: 1px solid #2D9C6E; }
+
+    .flow-arrow {
+      display: flex;
+      align-items: center;
+      padding: 0 4px;
+      color: var(--muted);
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    /* ── Demo panel ───────────────────────────────────────────────────────── */
+    .demo-section { background: var(--navy); padding: 48px 40px; }
+    .demo-inner { max-width: 1100px; margin: 0 auto; }
+    .demo-section .section-title { color: var(--white); border-color: var(--gold); }
+
+    .btn-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .demo-btn {
+      flex: 1;
+      min-width: 240px;
+      padding: 20px 28px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 17px;
+      font-weight: 700;
+      transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+      text-align: left;
+      line-height: 1.3;
+    }
+    .demo-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
+    .demo-btn:active { transform: translateY(0); }
+    .demo-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+    .btn-green { background: var(--green); color: var(--white); }
+    .btn-red   { background: var(--red);   color: var(--white); }
+    .demo-btn .btn-title { display: block; font-size: 18px; }
+    .demo-btn .btn-sub   { display: block; font-size: 13px; opacity: 0.88; margin-top: 4px; font-weight: 400; }
+
+    /* ── Timeline ─────────────────────────────────────────────────────────── */
+    .timeline-box {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 20px 24px;
+      min-height: 120px;
+      margin-bottom: 28px;
+    }
+    .timeline-header {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #8090B0;
+      margin-bottom: 14px;
+    }
+    #timeline-entries { list-style: none; }
+    #timeline-entries li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 7px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      font-size: 14px;
+      color: #CBD5E0;
+      animation: fadeInUp 0.3s ease;
+    }
+    #timeline-entries li:last-child { border-bottom: none; }
+    .tl-time { color: #6B7A95; font-size: 12px; white-space: nowrap; padding-top: 2px; }
+    .tl-svc  { font-weight: 700; font-size: 12px; white-space: nowrap; padding: 2px 8px; border-radius: 4px; }
+    .svc-normalizer { background: #1A3A5C; color: #7EB8E0; }
+    .svc-aep        { background: #1A3A4A; color: var(--teal); }
+    .svc-triage     { background: #2A2A50; color: #A8A0FF; }
+    .svc-system     { background: #1E2D1E; color: #80C080; }
+    .tl-msg  { flex: 1; }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    #idle-msg { color: #8090B0; font-style: italic; font-size: 14px; }
+
+    /* ── Result card ──────────────────────────────────────────────────────── */
+    #result-card { display: none; }
+    .result-card-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 700px) { .result-card-inner { grid-template-columns: 1fr; } }
+
+    /* Phone mock */
+    .phone-mock {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .phone-mock-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .phone-frame {
+      background: #F0F4F8;
+      border-radius: 24px;
+      border: 3px solid #CBD5E0;
+      padding: 20px 18px;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+    .phone-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #CBD5E0;
+    }
+    .phone-avatar {
+      width: 36px; height: 36px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; color: white;
+    }
+    .phone-contact { font-size: 13px; font-weight: 700; color: var(--navy); }
+    .phone-sub     { font-size: 11px; color: var(--muted); }
+    .sms-bubble {
+      background: var(--white);
+      border-radius: 16px 16px 16px 4px;
+      padding: 12px 15px;
+      font-size: 14px;
+      color: var(--navy);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      line-height: 1.5;
+    }
+    .sms-time { text-align: right; font-size: 11px; color: var(--muted); margin-top: 6px; }
+
+    /* Agent context panel */
+    .agent-panel {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .agent-panel-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--red);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .context-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .ctx-field { }
+    .ctx-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; }
+    .ctx-value { font-size: 14px; font-weight: 600; color: var(--navy); margin-top: 2px; }
+    .ctx-value.critical { color: var(--red); }
+    .reasoning-box {
+      background: #FFF8F0;
+      border: 1px solid #F4A261;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: #5D4037;
+      line-height: 1.5;
+    }
+    .reasoning-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #854F0B;
+      margin-bottom: 5px;
+    }
+
+    /* ── Test Case cards ─────────────────────────────────────────────────── */
+    .test-case-intro { margin-bottom: 24px; }
+    .test-case-intro p { color: rgba(255,255,255,0.75); font-size: 15px; margin-top: 8px; max-width: 800px; }
+    .test-case-cards { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 36px; }
+    .test-case-card {
+      flex: 1;
+      min-width: 280px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .tc-card-green { border-left: 4px solid var(--green); }
+    .tc-card-red   { border-left: 4px solid var(--red); }
+    .tc-badge { font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+    .tc-heading { font-size: 19px; font-weight: 800; color: var(--white); margin: 0; }
+    .tc-proves { font-size: 13px; color: rgba(255,255,255,0.72); line-height: 1.55; }
+    .tc-proves strong { color: rgba(255,255,255,0.92); }
+    .tc-btn {
+      margin-top: auto; padding: 14px 20px; border: none; border-radius: 9px;
+      cursor: pointer; font-size: 16px; font-weight: 700; width: 100%;
+      transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s; text-align: center; line-height: 1.3;
+    }
+    .tc-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+    .tc-btn:active { transform: translateY(0); }
+    .tc-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+    .tc-btn-green { background: var(--green); color: var(--white); }
+    .tc-btn-red   { background: var(--red);   color: var(--white); }
+
+    /* ── Flow step progressive states ─────────────────────────────────────── */
+    .flow-step.pending {
+      opacity: 0.35;
+      filter: grayscale(70%);
+      transition: opacity 0.4s, filter 0.4s, box-shadow 0.3s, border-color 0.3s, transform 0.3s;
+    }
+    .flow-step.done {
+      opacity: 1; filter: none;
+      border-color: rgba(0,168,150,0.4);
+      transition: opacity 0.4s, filter 0.4s, box-shadow 0.3s, border-color 0.3s, transform 0.3s;
+    }
+    .flow-step.active, .flow-step.active-red {
+      animation: stepPulse 1.4s ease-in-out infinite;
+    }
+    @keyframes stepPulse {
+      0%, 100% { transform: translateY(-4px); }
+      50%       { transform: translateY(-7px); }
+    }
+    #flow-hint {
+      font-size: 13px; color: rgba(255,255,255,0.45);
+      margin-bottom: 16px; font-style: italic; transition: opacity 0.3s;
+    }
+
+    /* ── Timeline live label ──────────────────────────────────────────────── */
+    .timeline-live-label {
+      font-size: 12px; color: rgba(255,255,255,0.45);
+      font-style: italic; margin-bottom: 10px;
+    }
+
+    /* ── Result column headers ────────────────────────────────────────────── */
+    .result-col-header {
+      font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.6);
+      letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 6px;
+    }
+    .result-col-sub {
+      font-size: 11px; color: rgba(255,255,255,0.4);
+      text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 12px;
+    }
+
+    /* ── Mock section ─────────────────────────────────────────────────────── */
+    .mock-section { background: #EEF2F7; padding: 48px 40px; }
+    .mock-inner { max-width: 1100px; margin: 0 auto; }
+    .mock-section .section-title { color: var(--navy); border-color: var(--navy); }
+    .mock-flow-diagram {
+      display: flex; align-items: stretch; gap: 0;
+      flex-wrap: wrap; margin: 24px 0;
+    }
+    .mock-step {
+      background: var(--white); border: 2px solid var(--border);
+      border-radius: 12px; padding: 16px 18px;
+      text-align: center; min-width: 150px; flex: 1;
+    }
+    .mock-step.new-service { border-color: var(--gold); background: #FFFBF3; }
+    .mock-step.ui-only     { border-style: dashed; background: #F8F9FA; }
+    .mock-step-name { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .mock-step-port { font-size: 12px; font-weight: 700; color: var(--teal); margin-bottom: 6px; }
+    .mock-step-role { font-size: 11px; color: var(--muted); line-height: 1.4; }
+    .mock-arrow {
+      display: flex; align-items: center;
+      padding: 0 8px; color: var(--muted); font-size: 20px; flex-shrink: 0;
+    }
+    .mock-closing {
+      margin-top: 20px; padding: 16px 20px;
+      background: #E8F4F0; border-left: 4px solid var(--teal);
+      border-radius: 0 8px 8px 0; font-size: 14px; color: #2D5047; line-height: 1.6;
+    }
+
+    /* ── Footer ───────────────────────────────────────────────────────────── */
+    footer {
+      background: var(--navy);
+      color: #8090B0;
+      text-align: center;
+      padding: 28px 40px;
+      font-size: 14px;
+    }
+    footer strong { color: var(--gold); }
+
+    /* ── Spinner ──────────────────────────────────────────────────────────── */
+    .spinner {
+      display: inline-block;
+      width: 14px; height: 14px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: var(--white);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Unified live-run panel ─────────────────────────────────────────────── */
+    .live-run-panel {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      padding: 24px;
+      margin-top: 8px;
+      margin-bottom: 28px;
+    }
+
+    .live-run-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .live-run-col-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #8090B0;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .live-run-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Override flow-diagram to vertical inside live-run-panel */
+    .live-run-panel .flow-diagram {
+      flex-direction: column;
+      overflow-x: visible;
+    }
+    .live-run-panel .flow-arrow {
+      transform: rotate(90deg);
+      padding: 2px 0;
+      justify-content: center;
+    }
+    .live-run-panel .flow-step {
+      min-width: 0;
+      background: rgba(255,255,255,0.06);
+      border-color: rgba(255,255,255,0.15);
+    }
+    .live-run-panel .flow-step .step-label { color: var(--white); }
+    .live-run-panel .flow-step .step-sub   { color: #A8B8D8; }
+
+    /* Remove bottom margin from timeline-box when it's a grid child */
+    .live-run-panel .timeline-box { margin-bottom: 0; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-eyebrow">Sparkathon 2026 · Team Brij &amp; Vinayak</div>
+  <h1>CXone <span>IoT Intelligence Hub</span> — devices report their own faults,<br>NICE's existing AI resolves them before the customer calls.</h1>
+  <p class="hero-sub">A device fault fires into NICE AEP, Cognigy triages it in seconds, and the customer either never needs to call — or an agent already has full context when they do.</p>
+  <div class="stat-row">
+    <div class="stat-badge">
+      <span class="stat-num">~85%</span>
+      <span class="stat-label">existing NICE platform</span>
+    </div>
+    <div class="stat-badge">
+      <span class="stat-num">1</span>
+      <span class="stat-label">new service (Event Normalizer)</span>
+    </div>
+    <div class="stat-badge">
+      <span class="stat-num">&lt;30s</span>
+      <span class="stat-label">device fault to resolution</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     LIVE DEMO PANEL
+════════════════════════════════════════════════════════════════════════════ -->
+<section class="demo-section">
+  <div class="demo-inner">
+    <div class="test-case-intro">
+      <div class="section-title">Two Test Cases — Try Either One</div>
+      <p>This prototype demonstrates two outcomes of the same architecture: full automation, and AI-assisted human handoff. Run either test case below to watch it happen live.</p>
+    </div>
+
+    <div class="test-case-cards">
+      <div class="test-case-card tc-card-green">
+        <div class="tc-badge">Test Case 1 · Low Severity</div>
+        <div class="tc-heading">🟢 Scheduled Maintenance</div>
+        <div class="tc-proves"><strong>Proves:</strong> the system can resolve a routine issue completely on its own — no human involved. Watch it auto-book a technician and notify the customer, start to finish.</div>
+        <button class="tc-btn tc-btn-green" id="btn-low" onclick="fireEvent('low')">
+          <span class="btn-title">▶ Run Test Case 1</span>
+          <span class="btn-sub">Air conditioner annual service due</span>
+        </button>
+      </div>
+      <div class="test-case-card tc-card-red">
+        <div class="tc-badge">Test Case 2 · High Severity</div>
+        <div class="tc-heading">🔴 Critical Fault</div>
+        <div class="tc-proves"><strong>Proves:</strong> the system correctly recognizes when NOT to act alone, and hands off to a human agent with full context ready — device data, Cognigy reasoning, warranty status, all pre-populated.</div>
+        <button class="tc-btn tc-btn-red" id="btn-high" onclick="fireEvent('high')">
+          <span class="btn-title">▶ Run Test Case 2</span>
+          <span class="btn-sub">Safety-critical control board failure</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Unified live-run panel: flow diagram + timeline side by side -->
+    <div class="live-run-panel">
+      <div class="live-run-grid">
+
+        <!-- Left column: How It Works flow diagram -->
+        <div>
+          <div class="live-run-col-title">How It Works</div>
+          <p id="flow-hint">Run a test case above to see this flow activate step by step ↓</p>
+          <div class="flow-diagram">
+            <div class="flow-step pending" id="step-1">
+              <div class="step-icon">📡</div>
+              <div class="step-label">Device Fault</div>
+              <div class="step-sub">Air conditioner, HVAC, any IoT device reports a fault</div>
+              <span class="step-badge badge-existing">Existing</span>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step pending" id="step-2">
+              <div class="step-icon">🧩</div>
+              <div class="step-label">Event Normalizer</div>
+              <div class="step-sub">Validates &amp; maps vendor payload → AEP standard schema</div>
+              <span class="step-badge badge-new">New</span>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step pending" id="step-3">
+              <div class="step-icon">🧠</div>
+              <div class="step-label">AEP + Cognigy</div>
+              <div class="step-sub">Creates a Thread; Cognigy Flow applies warranty + severity rules</div>
+              <span class="step-badge badge-existing">Existing</span>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step pending" id="step-4">
+              <div class="step-icon" id="step4-icon">⚡</div>
+              <div class="step-label" id="step4-label">Auto-Resolve or Escalate</div>
+              <div class="step-sub" id="step4-sub">LOW/MEDIUM + warranty → self-resolve; HIGH/CRITICAL → human agent with full context</div>
+              <span class="step-badge badge-extend">Extend</span>
+            </div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-step pending" id="step-5">
+              <div class="step-icon">📱</div>
+              <div class="step-label">Customer</div>
+              <div class="step-sub">Receives proactive SMS — or never needs to call at all</div>
+              <span class="step-badge badge-existing">Existing</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right column: Live event timeline -->
+        <div>
+          <div class="live-run-col-title">Live Event Timeline</div>
+          <div class="timeline-box">
+            <p class="timeline-live-label">Real requests, real responses — live output from the three running services, not a canned animation.</p>
+            <ul id="timeline-entries">
+              <li id="idle-msg">Click a button above to start the demo — events will stream here in real time.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div><!-- /.live-run-grid -->
+    </div><!-- /.live-run-panel -->
+
+    <!-- Result card (hidden until run completes) -->
+    <div id="result-card">
+      <div class="result-card-inner">
+
+        <!-- Left column: What the Customer Sees -->
+        <div>
+          <div class="result-col-header">🙋 What the Customer Sees</div>
+          <div class="result-col-sub" id="sms-outcome-label">Customer notification</div>
+          <div class="phone-mock">
+            <div class="phone-frame">
+              <div class="phone-header">
+                <div class="phone-avatar">📱</div>
+                <div>
+                  <div class="phone-contact">NICE CXone</div>
+                  <div class="phone-sub">Service Update</div>
+                </div>
+              </div>
+              <div class="sms-bubble" id="sms-text">Waiting for result…</div>
+              <div class="sms-time" id="sms-time">Just now</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right column: What CX / The Agent Sees -->
+        <div>
+          <div class="result-col-header">🎧 What CX / The Agent Sees</div>
+
+          <!-- Auto-resolve CX view: ticket-closed summary -->
+          <div id="card-cx-auto" style="display:none;">
+            <div class="agent-panel">
+              <div class="agent-panel-title" style="color:var(--green);">✅ Auto-Resolved — No Human Needed</div>
+              <div class="context-grid">
+                <div class="ctx-field">
+                  <div class="ctx-label">Device</div>
+                  <div class="ctx-value" id="ctx2-deviceId">—</div>
+                </div>
+                <div class="ctx-field">
+                  <div class="ctx-label">Fault</div>
+                  <div class="ctx-value" id="ctx2-faultCode">—</div>
+                </div>
+                <div class="ctx-field">
+                  <div class="ctx-label">Severity</div>
+                  <div class="ctx-value" id="ctx2-severity">—</div>
+                </div>
+                <div class="ctx-field">
+                  <div class="ctx-label">Warranty</div>
+                  <div class="ctx-value" id="ctx2-warranty">—</div>
+                </div>
+              </div>
+              <div class="reasoning-label">🤖 Cognigy Reasoning</div>
+              <div class="reasoning-box" id="ctx2-reasoning">—</div>
+              <div class="reasoning-label" style="margin-top:14px;color:var(--green);">📋 Ticket Closed — Zero Human Touch</div>
+              <div class="reasoning-box" id="ctx2-outcome" style="border-color:var(--green);background:#F0FFF8;">—</div>
+            </div>
+          </div>
+
+          <!-- Escalate CX view: Agent Context Panel -->
+          <div id="card-escalate" style="display:none;">
+            <div class="agent-panel">
+              <div class="agent-panel-title">🚨 Escalated — Agent Context Panel</div>
+              <div class="context-grid">
+                <div class="ctx-field">
+                  <div class="ctx-label">Device ID</div>
+                  <div class="ctx-value" id="ctx-deviceId">—</div>
+                </div>
+                <div class="ctx-field">
+                  <div class="ctx-label">Asset Type</div>
+                  <div class="ctx-value" id="ctx-assetType">—</div>
+                </div>
+                <div class="ctx-field">
+                  <div class="ctx-label">Fault Code</div>
+                  <div class="ctx-value" id="ctx-faultCode">—</div>
+                </div>
+                <div class="ctx-field">
+                  <div class="ctx-label">Severity</div>
+                  <div class="ctx-value critical" id="ctx-severity">—</div>
+                </div>
+                <div class="ctx-field">
+                  <div class="ctx-label">Customer ID</div>
+                  <div class="ctx-value" id="ctx-customerId">—</div>
+                </div>
+                <div class="ctx-field">
+                  <div class="ctx-label">Warranty</div>
+                  <div class="ctx-value" id="ctx-warranty">—</div>
+                </div>
+              </div>
+              <div class="reasoning-label">🤖 Cognigy Reasoning</div>
+              <div class="reasoning-box" id="ctx-reasoning">—</div>
+              <div class="reasoning-label" style="margin-top:14px;color:var(--green);">✅ Agent Action</div>
+              <div class="reasoning-box" id="ctx-outcome" style="border-color:var(--green);background:#F0FFF8;">Technician booked for on-site repair. Customer notified via preferred channel.</div>
+            </div>
+          </div>
+
+        </div><!-- /Right column -->
+
+      </div><!-- /.result-card-inner -->
+    </div><!-- /#result-card -->
+
+  </div><!-- /.demo-inner -->
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     HOW THIS DEMO IS MOCKED
+════════════════════════════════════════════════════════════════════════════ -->
+<section class="mock-section">
+  <div class="mock-inner">
+    <div class="section-title">How This Demo Is Mocked</div>
+    <p style="max-width:760px; margin-bottom:4px; color:#4A5568; font-size:15px;">
+      Three lightweight Node.js services run locally to prove the integration pattern live. Here's what each one stands in for in the real NICE architecture:
+    </p>
+
+    <div class="mock-flow-diagram">
+      <div class="mock-step new-service">
+        <div class="mock-step-name">Event Normalizer</div>
+        <div class="mock-step-port">:3001</div>
+        <div class="mock-step-role">This <em>is</em> the real component — the one genuinely new piece in the proposed architecture</div>
+      </div>
+      <div class="mock-arrow">→</div>
+      <div class="mock-step">
+        <div class="mock-step-name">AEP Stub</div>
+        <div class="mock-step-port">:3002</div>
+        <div class="mock-step-role">Mocks NICE's real Agentic Engagement Plane (Thread creation + Engagement Path routing)</div>
+      </div>
+      <div class="mock-arrow">→</div>
+      <div class="mock-step">
+        <div class="mock-step-name">Cognigy Triage</div>
+        <div class="mock-step-port">:3003</div>
+        <div class="mock-step-role">Mocks a real Cognigy Flow (NICE-owned AI) doing warranty + severity reasoning; broadcasts result via SSE</div>
+      </div>
+      <div class="mock-arrow">→</div>
+      <div class="mock-step ui-only">
+        <div class="mock-step-name">Agent Context Panel</div>
+        <div class="mock-step-port" style="color:var(--muted);">UI-only · no separate service</div>
+        <div class="mock-step-role">Rendered inline in this page from the SSE payload — mocks the CXone Agent Workspace screen-pop</div>
+      </div>
+    </div>
+
+    <div class="mock-closing">
+      In production, these steps run on NICE's real AEP and Cognigy platforms — nothing here reinvents them. This mock exists only to prove the integration pattern live, in a 48-hour hackathon timeframe.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════════════════════ -->
+<footer>
+  <strong>~85% existing NICE platform · 1 new service · &lt;30 s to resolution</strong><br>
+  <span>Sparkathon 2026 · Brij &amp; Vinayak · CXone Device Signal Bridge</span>
+</footer>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     APP JS — inline, no framework, no build step
+════════════════════════════════════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+const NORMALIZER = 'http://localhost:3001';
+const AEP        = 'http://localhost:3002';
+const TRIAGE_SSE = 'http://localhost:3003/events';
+
+// Step IDs in order: [device, normalizer, aep+cognigy, resolve/escalate, customer]
+const STEP_IDS = ['step-1','step-2','step-3','step-4','step-5'];
+let activeStep = null;
+let sseSource  = null;
+let running    = false;
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
+function now() {
+  return new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+}
+
+function clearStepHighlights() {
+  STEP_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.remove('active','active-red');
+  });
+}
+
+function highlightStep(stepNum, isRed) {
+  document.getElementById('flow-hint').style.opacity = '0';
+  STEP_IDS.forEach((id, index) => {
+    const el = document.getElementById(id);
+    const step = index + 1;
+    el.classList.remove('active', 'active-red', 'done', 'pending');
+    if (step < stepNum) {
+      el.classList.add('done');
+    } else if (step === stepNum) {
+      el.classList.add(isRed ? 'active-red' : 'active');
+    } else {
+      el.classList.add('pending');
+    }
+  });
+  activeStep = stepNum;
+}
+
+function addTimeline(svcClass, svcLabel, msg) {
+  const ul = document.getElementById('timeline-entries');
+  const idle = document.getElementById('idle-msg');
+  if (idle) idle.remove();
+
+  const li = document.createElement('li');
+  li.innerHTML = `<span class="tl-time">${now()}</span>
+    <span class="tl-svc ${svcClass}">${svcLabel}</span>
+    <span class="tl-msg">${msg}</span>`;
+  ul.appendChild(li);
+  li.scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+
+function resetTimeline() {
+  const ul = document.getElementById('timeline-entries');
+  ul.innerHTML = '';
+  const idleMsg = document.createElement('li');
+  idleMsg.id = 'idle-msg';
+  idleMsg.textContent = 'Click a button above to start the demo — events will stream here in real time.';
+  ul.appendChild(idleMsg);
+  document.getElementById('result-card').style.display = 'none';
+  document.getElementById('card-cx-auto').style.display = 'none';
+  document.getElementById('card-escalate').style.display = 'none';
+  // Reset flow steps to dimmed pending state
+  STEP_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.remove('active', 'active-red', 'done');
+    el.classList.add('pending');
+  });
+  document.getElementById('flow-hint').style.opacity = '1';
+}
+
+function setButtonsDisabled(dis) {
+  document.getElementById('btn-low').disabled  = dis;
+  document.getElementById('btn-high').disabled = dis;
+  if (dis) {
+    document.getElementById('btn-low').innerHTML  = '<span class="spinner"></span><span class="btn-title">Running…</span><span class="btn-sub">Watching for events…</span>';
+    document.getElementById('btn-high').innerHTML = '<span class="spinner"></span><span class="btn-title">Running…</span><span class="btn-sub">Watching for events…</span>';
+  } else {
+    document.getElementById('btn-low').innerHTML  = '<span class="btn-title">▶ Run Test Case 1</span><span class="btn-sub">Air conditioner annual service due</span>';
+    document.getElementById('btn-high').innerHTML = '<span class="btn-title">▶ Run Test Case 2</span><span class="btn-sub">Safety-critical control board failure</span>';
+  }
+}
+
+// ── SSE connection to cognigy-triage /events ─────────────────────────────────
+// Returns a Promise that resolves once the server confirms the connection,
+// and also accepts an onEvent callback for subsequent triage messages.
+// Connecting BEFORE firing the event avoids the race where triage completes
+// before the EventSource listener is registered.
+function connectSSE(onEvent) {
+  if (sseSource) { sseSource.close(); sseSource = null; }
+  sseSource = new EventSource(TRIAGE_SSE);
+
+  return new Promise((resolveConnected) => {
+    let confirmed = false;
+
+    sseSource.onopen = () => {
+      // onopen fires when the HTTP connection is established, but the server
+      // sends an explicit {"type":"connected"} message too — wait for that.
+    };
+
+    sseSource.onmessage = (e) => {
+      try {
+        const data = JSON.parse(e.data);
+        if (!confirmed) {
+          confirmed = true;
+          addTimeline('svc-system', 'system', '🔌 Connected to live event stream (cognigy-triage)');
+          resolveConnected();  // SSE is live — safe to fire the POST now
+          if (data.type !== 'connected') onEvent(data); // rare: immediate event
+        } else {
+          if (data.type !== 'connected') onEvent(data);
+        }
+      } catch (_) {}
+    };
+
+    sseSource.onerror = () => {
+      if (!confirmed) {
+        confirmed = true;
+        addTimeline('svc-system', 'system', '⚠️ SSE stream error — is cognigy-triage running on :3003?');
+        resolveConnected(); // don't block; let the POST proceed anyway
+      }
+    };
+
+    // Safety: resolve after 2 s even if the server sends nothing yet
+    setTimeout(() => { if (!confirmed) { confirmed = true; resolveConnected(); } }, 2000);
+  });
+}
+
+// ── Main fire function ────────────────────────────────────────────────────────
+async function fireEvent(type) {
+  if (running) return;
+  running = true;
+  resetTimeline();
+  setButtonsDisabled(true);
+
+  const payload = type === 'low'
+    ? {
+        sourceAgent: 'salesforce-fsl',
+        deviceId: 'AC-00421',
+        assetType: 'AirConditioner',
+        faultCode: 'SCHED-ANNUAL-SERVICE',
+        severity: 'LOW',
+        customerId: 'CUST-9182',
+        warrantyStatus: 'ACTIVE',
+        agentDiagnosis: 'Annual scheduled maintenance due — filter cleaning, coil inspection, and refrigerant level check required. Proactive service prevents future faults.',
+        recommendedAction: 'schedule_maintenance',
+        timestamp: new Date().toISOString()
+      }
+    : {
+        sourceAgent: 'salesforce-fsl',
+        deviceId: 'AC-00888',
+        assetType: 'AirConditioner',
+        faultCode: 'E99-COMPRESSOR-FAIL',
+        severity: 'CRITICAL',
+        customerId: 'CUST-4471',
+        warrantyStatus: 'ACTIVE',
+        agentDiagnosis: 'Compressor failure — unit is non-operational and must not be used. Immediate inspection and replacement required.',
+        recommendedAction: 'immediate_service',
+        timestamp: new Date().toISOString()
+      };
+
+  // Step 1: Device fires
+  highlightStep(1, false);
+  addTimeline('svc-system', 'device', `📡 ${payload.assetType} <strong>${payload.deviceId}</strong> fired fault: <strong>${payload.faultCode}</strong> (${payload.severity})`);
+
+  // ── Connect SSE FIRST — must be listening before the POST triggers triage ──
+  // Triage completes in ~400 ms; if we connected after the POST we'd miss the broadcast.
+  let triageEventResolve;
+  const triageEventPromise = new Promise(r => { triageEventResolve = r; });
+
+  await connectSSE((data) => {
+    // This callback fires for any triage message that arrives after connection
+    triageEventResolve(data);
+  });
+
+  await sleep(200); // tiny gap to ensure server's SSE write buffer is flushed
+
+  // Step 2: Event Normalizer
+  highlightStep(2, false);
+  addTimeline('svc-normalizer', 'normalizer', `🧩 POST /events → Event Normalizer…`);
+
+  let eventId, contactKey, threadId;
+
+  try {
+    const resp = await fetch(`${NORMALIZER}/events`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const body = await resp.json();
+
+    if (!resp.ok) {
+      addTimeline('svc-normalizer', 'normalizer', `❌ Validation error: ${JSON.stringify(body.details)}`);
+      done();
+      return;
+    }
+
+    eventId    = body.eventId;
+    contactKey = body.contactKey;
+    addTimeline('svc-normalizer', 'normalizer', `✅ Normalised → eventId <code>${eventId.slice(0,8)}…</code> | contactKey <code>${contactKey}</code>`);
+  } catch (err) {
+    addTimeline('svc-normalizer', 'normalizer', `❌ Cannot reach Event Normalizer (:3001). Is it running?`);
+    done();
+    return;
+  }
+
+  await sleep(300);
+
+  // Step 3: AEP receives
+  highlightStep(3, false);
+  addTimeline('svc-aep', 'aep-stub', `🧠 AEP ingesting event, creating Thread…`);
+
+  await sleep(600);
+
+  // Fetch thread from AEP
+  try {
+    const threadsResp = await fetch(`${AEP}/threads`);
+    const threadsBody = await threadsResp.json();
+    const thread = (threadsBody.threads || []).find(t => t.contactKey === contactKey);
+    if (thread) {
+      threadId = thread.threadId;
+      addTimeline('svc-aep', 'aep-stub', `✅ Thread created: <code>${threadId.slice(0,8)}…</code> | Routing to cognigy-triage`);
+    } else {
+      addTimeline('svc-aep', 'aep-stub', `✅ AEP ingested event → routing to cognigy-triage`);
+    }
+  } catch (err) {
+    addTimeline('svc-aep', 'aep-stub', `✅ AEP ingested event → routing to cognigy-triage`);
+  }
+
+  addTimeline('svc-triage', 'triage', `🧠 Cognigy applying triage rules: warranty=${payload.warrantyStatus}, severity=${payload.severity}…`);
+
+  // Step 4: Wait for SSE triage result (we're already subscribed — no race)
+  await new Promise((resolve) => {
+    const timeout = setTimeout(() => {
+      addTimeline('svc-triage', 'triage', `⏱ Timed out waiting for triage result — check if services are running`);
+      resolve();
+    }, 15000);
+
+    triageEventPromise.then((data) => {
+      clearTimeout(timeout);
+
+      if (data.type === 'auto_resolve') {
+        highlightStep(4, false);
+
+        // Update step 4 icon/label for resolve
+        document.getElementById('step4-icon').textContent = '⚡';
+        document.getElementById('step4-label').textContent = 'Auto-Resolved';
+        document.getElementById('step4-sub').textContent = 'Technician booked, customer notified';
+
+        addTimeline('svc-triage', 'triage', `✅ AUTO-RESOLVE: ${data.reasoning}`);
+
+        // Step 5
+        setTimeout(() => {
+          highlightStep(5, false);
+          addTimeline('svc-system', 'customer', `📱 SMS sent to customer ${data.payload.customerId} — fault resolved proactively`);
+
+          // Show result card
+          setTimeout(() => {
+            showAutoResolveCard(data);
+            resolve();
+          }, 400);
+        }, 600);
+
+      } else if (data.type === 'escalate') {
+        highlightStep(4, true);
+
+        document.getElementById('step4-icon').textContent = '🧑‍💼';
+        document.getElementById('step4-label').textContent = 'Escalated to Agent';
+        document.getElementById('step4-sub').textContent = 'Full device context pushed to agent workspace';
+
+        addTimeline('svc-triage', 'triage', `🚨 ESCALATE: ${data.reasoning}`);
+        addTimeline('svc-aep', 'aep-stub', `🔗 POST /handover → AEP | handoverId: ${(data.handoverId||'').slice(0,8)}…`);
+
+        // Step 5 — agent sees context, confirms warranty, books technician, notifies customer
+        setTimeout(() => {
+          highlightStep(5, true);
+          addTimeline('svc-system', 'agent', `🧑‍💼 Agent context panel populated — device details + Cognigy reasoning ready`);
+
+          setTimeout(() => {
+            addTimeline('svc-system', 'agent', `✅ Agent confirmed: Warranty ACTIVE — booking repair technician for ${data.payload ? data.payload.deviceId : 'device'}…`);
+          }, 500);
+
+          setTimeout(() => {
+            addTimeline('svc-system', 'customer', `📱 Customer ${data.payload ? data.payload.customerId : ''} notified — repair technician booked, appointment details sent`);
+          }, 1100);
+
+          // Fetch full context from AEP
+          const tid = data.threadId || threadId;
+          const afterFetch = (ctx) => { showEscalateCard(data, ctx); resolve(); };
+          setTimeout(() => {
+            if (tid) {
+              fetch(`${AEP}/context/${tid}`)
+                .then(r => r.json())
+                .then(ctx => afterFetch(ctx))
+                .catch(() => afterFetch({}));
+            } else {
+              afterFetch({});
+            }
+          }, 1400);
+        }, 600);
+      }
+    });
+  });
+
+  done();
+}
+
+// ── Result card renderers ─────────────────────────────────────────────────────
+function showAutoResolveCard(data) {
+  const p = data.payload || {};
+  // Left column: Customer SMS
+  document.getElementById('sms-outcome-label').textContent = 'Auto-Resolved — Customer SMS';
+  document.getElementById('sms-text').innerHTML =
+    `Hi! Your ${p.assetType || 'device'} (<strong>${p.deviceId}</strong>) is due for scheduled maintenance: <em>${p.vendorDiagnosis || p.faultCode}</em>. Our AI has automatically booked a technician visit — no action needed. You'll receive a confirmation with appointment details shortly. 😊`;
+  document.getElementById('sms-time').textContent = now();
+
+  // Right column: CX / ticket-closed summary
+  document.getElementById('ctx2-deviceId').textContent  = p.deviceId || '—';
+  document.getElementById('ctx2-faultCode').textContent = p.faultCode || '—';
+  document.getElementById('ctx2-severity').textContent  = p.severity  || '—';
+  document.getElementById('ctx2-warranty').textContent  = p.warrantyStatus || '—';
+  document.getElementById('ctx2-reasoning').textContent = data.reasoning || '—';
+  document.getElementById('ctx2-outcome').textContent   =
+    `Ticket closed. Technician auto-booked for ${p.assetType || 'device'} (${p.deviceId || ''}). Zero human touch — fully automated resolution at ${now()}.`;
+
+  document.getElementById('result-card').style.display   = 'block';
+  document.getElementById('card-cx-auto').style.display  = 'block';
+  document.getElementById('result-card').scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+
+function showEscalateCard(data, ctx) {
+  const p = data.payload || ctx.devicePayload || {};
+  // Right column: Agent Context Panel
+  document.getElementById('ctx-deviceId').textContent  = p.deviceId || '—';
+  document.getElementById('ctx-assetType').textContent = p.assetType || '—';
+  document.getElementById('ctx-faultCode').textContent = p.faultCode || '—';
+  document.getElementById('ctx-severity').textContent  = p.severity  || '—';
+  document.getElementById('ctx-customerId').textContent= p.customerId|| '—';
+  document.getElementById('ctx-warranty').textContent  = p.warrantyStatus || '—';
+  document.getElementById('ctx-reasoning').textContent = data.reasoning || '—';
+
+  const warrantyActive = (p.warrantyStatus || '').toUpperCase() === 'ACTIVE';
+  document.getElementById('ctx-outcome').textContent = warrantyActive
+    ? `Warranty ACTIVE — repair technician booked for ${p.assetType || 'device'} (${p.deviceId || ''}). Customer notified via preferred channel.`
+    : `Warranty INACTIVE — agent to advise customer on out-of-warranty repair options.`;
+
+  // Left column: Customer SMS
+  document.getElementById('sms-outcome-label').textContent = 'Escalated — Customer Notification';
+  document.getElementById('sms-text').innerHTML = warrantyActive
+    ? `Hi! We've identified a critical fault with your ${p.assetType || 'device'} (<strong>${p.deviceId}</strong>): <em>${p.faultCode}</em>. A specialist technician has been booked under your active warranty — you'll receive appointment details shortly. 🔧`
+    : `Hi! We've identified a critical fault with your ${p.assetType || 'device'} (<strong>${p.deviceId}</strong>). A service agent will contact you shortly to discuss repair options.`;
+  document.getElementById('sms-time').textContent = now();
+
+  document.getElementById('result-card').style.display   = 'block';
+  document.getElementById('card-escalate').style.display = 'block';
+  document.getElementById('result-card').scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+
+// ── Cleanup ───────────────────────────────────────────────────────────────────
+function done() {
+  running = false;
+  setButtonsDisabled(false);
+  if (sseSource) { sseSource.close(); sseSource = null; }
+  // Mark all steps as settled/done so the completed flow stays readable
+  STEP_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.remove('pending', 'active', 'active-red');
+    el.classList.add('done');
+  });
+}
+
+function sleep(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+</script>
+
+</body>
+</html>

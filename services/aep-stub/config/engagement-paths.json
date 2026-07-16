@@ -1,0 +1,14 @@
+{
+  "routes": [
+    {
+      "channelType": "iot-device",
+      "handlers": ["cognigy-triage"],
+      "description": "All IoT device fault events are routed to the Cognigy Triage service"
+    },
+    {
+      "channelType": "digital-chat",
+      "handlers": ["cognigy-cx"],
+      "description": "MOCK: digital chat would route to the real cxone-cognigy handler"
+    }
+  ]
+}

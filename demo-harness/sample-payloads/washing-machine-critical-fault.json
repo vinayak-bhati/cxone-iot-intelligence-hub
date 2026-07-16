@@ -1,0 +1,13 @@
+{
+  "_comment": "Scenario 2: CRITICAL severity + active warranty → should ESCALATE to human agent (severity_outside_policy)",
+  "sourceAgent": "salesforce-fsl",
+  "deviceId": "AC-00888",
+  "assetType": "AirConditioner",
+  "faultCode": "E99-COMPRESSOR-FAIL",
+  "severity": "CRITICAL",
+  "customerId": "CUST-4471",
+  "warrantyStatus": "ACTIVE",
+  "agentDiagnosis": "Compressor failure — unit is non-operational and must not be used. Immediate inspection and replacement required.",
+  "recommendedAction": "immediate_service",
+  "timestamp": "2026-07-14T10:35:00Z"
+}

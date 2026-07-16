@@ -1,0 +1,13 @@
+{
+  "_comment": "Scenario 1: LOW severity scheduled maintenance + active warranty → should AUTO-RESOLVE (book technician, notify customer)",
+  "sourceAgent": "salesforce-fsl",
+  "deviceId": "AC-00421",
+  "assetType": "AirConditioner",
+  "faultCode": "SCHED-ANNUAL-SERVICE",
+  "severity": "LOW",
+  "customerId": "CUST-9182",
+  "warrantyStatus": "ACTIVE",
+  "agentDiagnosis": "Annual scheduled maintenance due — filter cleaning, coil inspection, and refrigerant level check required. Proactive service prevents future faults.",
+  "recommendedAction": "schedule_maintenance",
+  "timestamp": "2026-07-14T10:30:00Z"
+}

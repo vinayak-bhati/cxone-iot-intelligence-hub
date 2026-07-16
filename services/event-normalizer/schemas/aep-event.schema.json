@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "aep-event",
+  "title": "AEPEvent",
+  "description": "Normalised AEP ingestion event. Mirrors the de-message-events-stream shape used by the DX channel. MOCK: real shape confirmed from Confluence IN-space / Cognigy Integration with DX page.",
+  "type": "object",
+  "required": ["eventId", "channelType", "contactKey", "occurredAt", "payload"],
+  "properties": {
+    "eventId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique event ID (UUID v4)"
+    },
+    "channelType": {
+      "type": "string",
+      "description": "AEP channel type — new value 'iot-device' added by this service",
+      "examples": ["iot-device", "digital-chat", "email"]
+    },
+    "contactKey": {
+      "type": "string",
+      "description": "Composite key: '<customerId>:<deviceId>' — stable across events for the same device/customer pair",
+      "examples": ["CUST-9182:AC-00421"]
+    },
+    "occurredAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 UTC timestamp of normalisation"
+    },
+    "payload": {
+      "type": "object",
+      "required": ["deviceId", "faultCode", "severity", "customerId"],
+      "properties": {
+        "deviceId":        { "type": "string" },
+        "assetType":       { "type": "string" },
+        "faultCode":       { "type": "string" },
+        "severity":        { "type": "string", "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"] },
+        "customerId":      { "type": "string" },
+        "warrantyStatus":  { "type": "string" },
+        "vendorDiagnosis": { "type": "string" },
+        "sourceAgent":     { "type": "string" }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "description": "Metering/tracing metadata added by the Event Normalizer",
+      "properties": {
+        "normalizerVersion": { "type": "string" },
+        "usageCounterKey":   { "type": "string", "description": "Key used in the usage counter: '<customerId>'" }
+      }
+    }
+  }
+}

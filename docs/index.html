@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CXone IoT Intelligence Hub | Sparkathon 2026</title>
+  <meta name="description" content="CXone IoT Intelligence Hub — IoT devices proactively trigger CXone AI Agents to detect, diagnose and resolve service events before the customer ever needs to call. Sparkathon 2026." />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Lucide icons via CDN — degrades gracefully if blocked -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" onerror="window._lucideUnavailable=true;"></script>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     STICKY HEADER + NAV
+══════════════════════════════════════════════════════════ -->
+<header id="site-header">
+  <div class="header-inner">
+    <a class="logo-area" href="#overview" aria-label="CXone IoT Intelligence Hub — go to top">
+      <i data-lucide="radio" style="width:20px;height:20px;color:#fff;flex-shrink:0;" aria-hidden="true"></i>
+      <span class="logo-wordmark">NiCE CXone <span>· IoT Intelligence Hub</span></span>
+    </a>
+    <nav class="nav-tabs" role="navigation" aria-label="Page sections">
+      <a class="nav-tab" href="#overview">
+        <i data-lucide="home" style="width:14px;height:14px;" aria-hidden="true"></i> Overview
+      </a>
+      <a class="nav-tab" href="#the-issue">
+        <i data-lucide="alert-triangle" style="width:14px;height:14px;" aria-hidden="true"></i> The Issue
+      </a>
+      <a class="nav-tab" href="#the-solution">
+        <i data-lucide="zap" style="width:14px;height:14px;" aria-hidden="true"></i> The Solution
+      </a>
+      <a class="nav-tab" href="#architecture">
+        <i data-lucide="git-branch" style="width:14px;height:14px;" aria-hidden="true"></i> Architecture
+      </a>
+      <a class="nav-tab" href="#how-demo-works">
+        <i data-lucide="cpu" style="width:14px;height:14px;" aria-hidden="true"></i> How the Demo Works
+      </a>
+      <a class="nav-tab" href="#run-the-demo">
+        <i data-lucide="play-circle" style="width:14px;height:14px;" aria-hidden="true"></i> Run the Demo
+      </a>
+      <a class="nav-tab" href="#presentation">
+        <i data-lucide="presentation" style="width:14px;height:14px;" aria-hidden="true"></i> Presentation
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════
+     MAIN CONTENT
+══════════════════════════════════════════════════════════ -->
+<main>
+
+  <!-- ─────────────────────────────────────────────────────
+       SECTION 1: OVERVIEW
+  ───────────────────────────────────────────────────── -->
+  <section id="overview">
+
+    <div class="hero-block reveal">
+      <p class="hero-credit">Brij Mohan, Vinayak Bhati &nbsp;|&nbsp; Sparkathon 2026</p>
+      <h1 class="hero-headline"><em>CXone</em><br />IoT Intelligence Hub</h1>
+      <p class="hero-subheadline">
+        IoT devices proactively trigger CXOne AI Agents to detect, diagnose and resolve service events —
+        before the customer ever needs to call.
+      </p>
+      <div class="hero-ctas">
+        <button class="btn btn-primary" data-scroll-to="#the-issue">
+          <i data-lucide="arrow-down" style="width:15px;height:15px;" aria-hidden="true"></i>
+          See the Problem ↓
+        </button>
+        <button class="btn btn-outline" data-scroll-to="#run-the-demo">
+          Run the Demo →
+        </button>
+      </div>
+    </div>
+
+    <!-- 4-box flow diagram -->
+    <div class="flow-diagram reveal reveal-delay-1" role="img" aria-label="4-step flow: IoT Device → Cognigy AI Agent → CXOne → Resolution">
+
+      <div class="flow-step">
+        <div class="flow-step-icon">
+          <i data-lucide="wifi" style="width:22px;height:22px;" aria-hidden="true"></i>
+        </div>
+        <div class="flow-step-title">IoT Device</div>
+        <div class="flow-step-desc">Detects &amp; sends fault event</div>
+      </div>
+
+      <div class="flow-arrow" aria-hidden="true">
+        <i data-lucide="arrow-right" style="width:20px;height:20px;"></i>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-step-icon" style="background:var(--teal-light);color:var(--teal);">
+          <i data-lucide="bot" style="width:22px;height:22px;" aria-hidden="true"></i>
+        </div>
+        <div class="flow-step-title">Cognigy AI Agent</div>
+        <div class="flow-step-desc">Reasons &amp; acts on fault</div>
+      </div>
+
+      <div class="flow-arrow" aria-hidden="true">
+        <i data-lucide="arrow-right" style="width:20px;height:20px;"></i>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-step-icon" style="background:var(--gold-light);color:var(--gold);">
+          <i data-lucide="layers" style="width:22px;height:22px;" aria-hidden="true"></i>
+        </div>
+        <div class="flow-step-title">CXOne</div>
+        <div class="flow-step-desc">Orchestrates workflow</div>
+      </div>
+
+      <div class="flow-arrow" aria-hidden="true">
+        <i data-lucide="arrow-right" style="width:20px;height:20px;"></i>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-step-icon" style="background:var(--green-light);color:var(--green);">
+          <i data-lucide="check-circle-2" style="width:22px;height:22px;" aria-hidden="true"></i>
+        </div>
+        <div class="flow-step-title">Resolution</div>
+        <div class="flow-step-desc">Auto workflow or escalate</div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────
+       SECTION 2: THE ISSUE
+  ───────────────────────────────────────────────────── -->
+  <section id="the-issue">
+
+    <div class="reveal">
+      <p class="section-label">The Problem</p>
+      <h2 class="section-title">Connected devices already know they are broken — but CXOne never hears it.</h2>
+    </div>
+
+    <div class="cards-grid cards-grid-3" style="margin-bottom:28px;">
+
+      <div class="card reveal reveal-delay-1">
+        <div class="card-icon card-icon-red">
+          <i data-lucide="volume-x" style="width:20px;height:20px;" aria-hidden="true"></i>
+        </div>
+        <h3 class="card-title">Silent Faults</h3>
+        <p class="card-body">
+          Sensors detect the issue instantly — but that signal never reaches the contact center.
+          The device knew before anyone else did.
+        </p>
+      </div>
+
+      <div class="card reveal reveal-delay-2">
+        <div class="card-icon card-icon-gold">
+          <i data-lucide="clock" style="width:20px;height:20px;" aria-hidden="true"></i>
+        </div>
+        <h3 class="card-title">Reactive-Only Support</h3>
+        <p class="card-body">
+          Resolution starts only when the customer calls, waits on hold, and re-explains the problem
+          from scratch. Hours or days are lost.
+        </p>
+      </div>
+
+      <div class="card reveal reveal-delay-3">
+        <div class="card-icon card-icon-blue">
+          <i data-lucide="truck" style="width:20px;height:20px;" aria-hidden="true"></i>
+        </div>
+        <h3 class="card-title">Blind, Costly Dispatch</h3>
+        <p class="card-body">
+          Agents work with no device context and technicians roll out on guesswork — long AHT,
+          repeat contacts, failed first visits.
+        </p>
+      </div>
+
+    </div>
+
+    <blockquote class="callout-band reveal">
+      Route IoT / device fault events natively into CXOne AI Agents to detect, triage and resolve
+      service events autonomously — or escalate to a human with full device context — before the
+      customer ever needs to call.
+    </blockquote>
+
+    <div class="stat-cards">
+      <div class="stat-card reveal reveal-delay-1">
+        <div class="stat-number">30–50%</div>
+        <div class="stat-label">of contact-center cost is calls a smart device could have prevented</div>
+      </div>
+      <div class="stat-card reveal reveal-delay-2">
+        <div class="stat-number">40%</div>
+        <div class="stat-label">of field-service truck rolls are avoidable with pre-diagnosis</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────
+       SECTION 3: THE SOLUTION
+  ───────────────────────────────────────────────────── -->
+  <section id="the-solution">
+
+    <div class="reveal">
+      <p class="section-label">The Solution</p>
+      <h2 class="section-title">One bridge. Every vertical.</h2>
+      <p class="section-intro">The same integration pattern unlocks proactive resolution across every industry running connected devices today.</p>
+    </div>
+
+    <!-- Repeat 4-box flow (intentional, ties sections together) -->
+    <div class="flow-diagram reveal reveal-delay-1" role="img" aria-label="4-step flow repeated: IoT Device → Cognigy AI Agent → CXOne → Resolution">
+
+      <div class="flow-step">
+        <div class="flow-step-icon">
+          <i data-lucide="wifi" style="width:22px;height:22px;" aria-hidden="true"></i>
+        </div>
+        <div class="flow-step-title">IoT Device</div>
+        <div class="flow-step-desc">Detects &amp; sends fault event</div>
+      </div>
+
+      <div class="flow-arrow" aria-hidden="true">
+        <i data-lucide="arrow-right" style="width:20px;height:20px;"></i>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-step-icon" style="background:var(--teal-light);color:var(--teal);">
+          <i data-lucide="bot" style="width:22px;height:22px;" aria-hidden="true"></i>
+        </div>
+        <div class="flow-step-title">Cognigy AI Agent</div>
+        <div class="flow-step-desc">Reasons &amp; acts on fault</div>
+      </div>
+
+      <div class="flow-arrow" aria-hidden="true">
+        <i data-lucide="arrow-right" style="width:20px;height:20px;"></i>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-step-icon" style="background:var(--gold-light);color:var(--gold);">
+          <i data-lucide="layers" style="width:22px;height:22px;" aria-hidden="true"></i>
+        </div>
+        <div class="flow-step-title">CXOne</div>
+        <div class="flow-step-desc">Orchestrates workflow</div>
+      </div>
+
+      <div class="flow-arrow" aria-hidden="true">
+        <i data-lucide="arrow-right" style="width:20px;height:20px;"></i>
+      </div>
+
+      <div class="flow-step">
+        <div class="flow-step-icon" style="background:var(--green-light);color:var(--green);">
+          <i data-lucide="check-circle-2" style="width:22px;height:22px;" aria-hidden="true"></i>
+        </div>
+        <div class="flow-step-title">Resolution</div>
+        <div class="flow-step-desc">Auto workflow or escalate</div>
+      </div>
+
+    </div>
+
+    <!-- 6-industry grid -->
+    <div class="cards-grid cards-grid-6">
+
+      <div class="card reveal reveal-delay-1">
+        <div class="card-icon card-icon-blue">
+          <i data-lucide="home" style="width:20px;height:20px;" aria-hidden="true"></i>
+        </div>
+        <h3 class="card-title">Smart Home</h3>
+        <p class="card-body">
+          Appliances self-diagnose &amp; book repairs and periodic services. No customer call needed. NPS soars.
+        </p>
+      </div>
+
+      <div class="card reveal reveal-delay-2">
+        <div class="card-icon card-icon-teal">
+          <i data-lucide="factory" style="width:20px;height:20px;" aria-hidden="true"></i>
+        </div>
+        <h3 class="card-title">Manufacturing</h3>
+        <p class="card-body">
+          Machines alert vendors before downtime. Cuts unplanned outages up to 30%.
+        </p>
+      </div>
+
+      <div class="card reveal reveal-delay-3">
+        <div class="card-icon card-icon-green">
+          <i data-lucide="heart-pulse" style="width:20px;height:20px;" aria-hidden="true"></i>
+        </div>
+        <h3 class="card-title">Healthcare</h3>
+        <p class="card-body">
+          Medical devices triage hospital or home patient's events. Report Hospital's Patient Care
+          for any deflections from normal.
+        </p>
+      </div>
+
+      <div class="card reveal reveal-delay-1">
+        <div class="card-icon card-icon-gold">
+          <i data-lucide="car" style="width:20px;height:20px;" aria-hidden="true"></i>
+        </div>
+        <h3 class="card-title">Automotive</h3>
+        <p class="card-body">
+          AI agent auto-schedules periodic service or repair during any possible fault detection.
+          Fleet managers and Owner notified instantly.
+        </p>
+      </div>
+
+      <div class="card reveal reveal-delay-2">
+        <div class="card-icon card-icon-blue" style="background:#FFF5F0;color:#C0392B;">
+          <i data-lucide="zap" style="width:20px;height:20px;" aria-hidden="true"></i>
+        </div>
+        <h3 class="card-title">Utilities</h3>
+        <p class="card-body">
+          Proactive outage notifications by AI agent deflect 10× call surge during any possible Outages.
+          SLA compliance met, millions saved per such incident.
+        </p>
+      </div>
+
+      <div class="card reveal reveal-delay-3">
+        <div class="card-icon card-icon-teal">
+          <i data-lucide="package" style="width:20px;height:20px;" aria-hidden="true"></i>
+        </div>
+        <h3 class="card-title">Logistics</h3>
+        <p class="card-body">
+          AI agents flag and fix potential risks based on cold chain warehouse sensors. AI agent
+          proactively addresses reroutes, delays to B2B supply chain Customers.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────
+       SECTION 4: ARCHITECTURE
+  ───────────────────────────────────────────────────── -->
+  <section id="architecture">
+
+    <div class="reveal">
+      <p class="section-label">Architecture</p>
+      <h2 class="section-title">One net-new component bridges devices into NICE's existing AEP + Cognigy platform.</h2>
+    </div>
+
+    <!-- Executive architecture image (drop file in docs/assets/) -->
+    <div class="arch-image-wrap reveal">
+      <img
+        src="assets/architecture-executive.png"
+        alt="CXone Device Signal Bridge — Executive Architecture Diagram"
+        loading="lazy"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+      />
+      <div class="arch-placeholder" style="display:none;">
+        <i data-lucide="image" style="width:32px;height:32px;margin:0 auto 12px;display:block;color:#CBD5E0;" aria-hidden="true"></i>
+        <strong>Architecture diagram coming soon</strong><br />
+        Drop <code>architecture-executive.png</code> into <code>docs/assets/</code> to display it here.
+      </div>
+    </div>
+    <!-- Fallback shown when image hasn't been dropped yet -->
+    <div class="arch-image-wrap reveal" id="arch-exec-placeholder" style="display:block;">
+      <div class="arch-placeholder">
+        <i data-lucide="image" style="width:32px;height:32px;margin:0 auto 12px;display:block;color:#CBD5E0;" aria-hidden="true"></i>
+        <strong>Executive Architecture Diagram</strong><br />
+        Drop <code>architecture-executive.png</code> into <code>docs/assets/</code> to display it here.
+      </div>
+    </div>
+    <script>
+      // Hide placeholder when image loads successfully
+      (function() {
+        var img = document.querySelector('#architecture .arch-image-wrap img');
+        var ph = document.getElementById('arch-exec-placeholder');
+        if (img) {
+          img.addEventListener('load', function() { if (ph) ph.style.display = 'none'; });
+          if (img.complete && img.naturalWidth > 0 && ph) ph.style.display = 'none';
+        }
+      })();
+    </script>
+
+    <!-- 5-step flow -->
+    <div class="arch-steps">
+
+      <div class="arch-step reveal reveal-delay-1">
+        <div class="arch-step-num">1</div>
+        <div class="arch-step-content">
+          <div class="arch-step-title">
+            Device Fault Fires
+            <span class="tag tag-external">External</span>
+          </div>
+          <div class="arch-step-body">
+            Appliance, machine, vehicle detects and pre-diagnoses a fault or scheduled maintenance.
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-step reveal reveal-delay-2">
+        <div class="arch-step-num">2</div>
+        <div class="arch-step-content">
+          <div class="arch-step-title">
+            Event Normalizer
+            <span class="tag tag-new">New</span>
+          </div>
+          <div class="arch-step-body">
+            Maps the raw device payload to NICE's standard AEP event schema.
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-step reveal reveal-delay-3">
+        <div class="arch-step-num">3</div>
+        <div class="arch-step-content">
+          <div class="arch-step-title">
+            AEP + Cognigy Triage
+            <span class="tag tag-existing">Existing</span>
+          </div>
+          <div class="arch-step-body">
+            Existing AI reasons over warranty, fault KB and history; decides Virtual Agent act or escalate to Human.
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-step reveal reveal-delay-4">
+        <div class="arch-step-num">4</div>
+        <div class="arch-step-content">
+          <div class="arch-step-title">
+            Auto-Resolve
+            <span class="tag tag-existing">Existing</span>
+          </div>
+          <div class="arch-step-body">
+            Books a technician and notifies the customer — zero human touch.
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-step reveal reveal-delay-5">
+        <div class="arch-step-num">5</div>
+        <div class="arch-step-content">
+          <div class="arch-step-title">
+            Escalate w/ Context
+            <span class="tag tag-existing">Existing</span>
+          </div>
+          <div class="arch-step-body">
+            Human agent gets full device context via screen-pop when needed.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Legend -->
+    <div class="arch-legend reveal">
+      <div class="arch-legend-item">
+        <span class="tag tag-new">New</span> Net-new component
+      </div>
+      <div class="arch-legend-item">
+        <span class="tag tag-existing">Existing</span> Existing + new config · Existing platform
+      </div>
+      <div class="arch-legend-item">
+        <span class="tag tag-external">External</span> External device / vendor
+      </div>
+    </div>
+
+    <!-- Callout -->
+    <blockquote class="callout-band callout-green reveal">
+      ~85% of this architecture is existing NICE platform — AEP threading, Engagement Paths,
+      Cognigy reasoning, CXOne ACD and Agent Workspace are reused as-is. Only the IoT Event
+      Normalizer is genuinely new (~2–3 engineering days). Result: 40% fewer inbound calls,
+      +28% CSAT, and a working Sparkathon demo in days — not months.
+    </blockquote>
+
+    <!-- Collapsible detailed architecture -->
+    <button
+      class="collapsible-toggle reveal"
+      data-target="arch-detailed-body"
+      data-label-open="Hide detailed architecture"
+      aria-expanded="false"
+      aria-controls="arch-detailed-body"
+    >
+      <i data-lucide="chevron-down" class="chevron" style="width:15px;height:15px;" aria-hidden="true"></i>
+      <span class="btn-text">Show detailed architecture</span>
+    </button>
+
+    <div class="collapsible-body" id="arch-detailed-body">
+      <div class="arch-image-wrap">
+        <img
+          src="assets/architecture-detailed.png"
+          alt="CXone Device Signal Bridge — Detailed Architecture Diagram"
+          loading="lazy"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+        />
+        <div class="arch-placeholder" style="display:none;">
+          <i data-lucide="image" style="width:32px;height:32px;margin:0 auto 12px;display:block;color:#CBD5E0;" aria-hidden="true"></i>
+          <strong>Detailed Architecture Diagram</strong><br />
+          Drop <code>architecture-detailed.png</code> into <code>docs/assets/</code> to display it here.
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────
+       SECTION 5: HOW THE DEMO WORKS
+  ───────────────────────────────────────────────────── -->
+  <section id="how-demo-works">
+
+    <div class="reveal">
+      <p class="section-label">Under the Hood</p>
+      <h2 class="section-title">How the Demo Works</h2>
+      <p class="section-intro">
+        For this Sparkathon prototype, three services simulate the flow above so the full journey
+        can be demoed end-to-end today — the architecture is real, the wiring is a lightweight stand-in.
+      </p>
+    </div>
+
+    <div class="cards-grid cards-grid-3">
+
+      <div class="service-card reveal reveal-delay-1">
+        <span class="service-badge badge-new">The real new component</span>
+        <div class="service-name">event-normalizer</div>
+        <p class="service-desc">
+          Genuinely the real component we'd ship — receives a simulated device fault and maps it
+          to NICE's event schema. Validates the vendor payload against a JSON schema and publishes
+          to AEP's ingest endpoint.
+        </p>
+      </div>
+
+      <div class="service-card reveal reveal-delay-2">
+        <span class="service-badge badge-mock">Mock stand-in</span>
+        <div class="service-name">aep-stub</div>
+        <p class="service-desc">
+          A small local service that mirrors NICE's real Agentic Engagement Plane contracts
+          (Thread creation, Engagement Path routing, Handover, Context API) closely enough to
+          prove the pattern, without needing production AEP access for a 48-hour hackathon.
+        </p>
+      </div>
+
+      <div class="service-card reveal reveal-delay-3">
+        <span class="service-badge badge-mock">Mock stand-in</span>
+        <div class="service-name">cognigy-triage</div>
+        <p class="service-desc">
+          Simulates the reasoning Cognigy would do — checking warranty and severity — using the
+          same decision logic a real Cognigy Flow would run.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="demo-closing-note reveal">
+      In production, these three steps run on NICE's actual AEP and Cognigy platforms — nothing
+      here reinvents them. This mock exists only to prove the integration pattern live,
+      in a hackathon timeframe.
+    </div>
+
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────
+       SECTION 6: RUN THE DEMO
+  ───────────────────────────────────────────────────── -->
+  <section id="run-the-demo">
+
+    <div class="reveal">
+      <p class="section-label">Get Started</p>
+      <h2 class="section-title">Run the Demo</h2>
+      <p class="section-intro">
+        Everything runs locally with a single double-click. Estimated cold-start time: under 2 minutes.
+      </p>
+    </div>
+
+    <div class="run-steps">
+
+      <div class="run-step reveal reveal-delay-1">
+        <div class="run-step-num">1</div>
+        <div class="run-step-content">
+          <div class="run-step-title">Clone (or unzip) the repository</div>
+          <div class="run-step-body">
+            <pre>git clone &lt;repo-url&gt;
+cd cxone-device-signal-bridge-submission</pre>
+            <p>Or simply unzip the submission archive anywhere on your machine.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="run-step reveal reveal-delay-2">
+        <div class="run-step-num">2</div>
+        <div class="run-step-content">
+          <div class="run-step-title">Prerequisites</div>
+          <div class="run-step-body">
+            <p>
+              <strong>Node.js 18+</strong> and <strong>npm</strong> (bundled with Node.js) must be installed.
+              Internet access is required on first run only (<code class="inline-code">npm install</code>
+              fetches packages; subsequent runs work offline).
+            </p>
+            <p>Download from <strong>nodejs.org</strong> — the LTS installer bundles npm.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="run-step reveal reveal-delay-3">
+        <div class="run-step-num">3</div>
+        <div class="run-step-content">
+          <div class="run-step-title">Start everything</div>
+          <div class="run-step-body">
+            <div class="os-tabs">
+              <span class="os-label win">Windows</span>
+            </div>
+            <pre>start-demo.bat    ← double-click, or right-click → Run as Administrator</pre>
+            <div class="os-tabs" style="margin-top:10px;">
+              <span class="os-label unix">Mac / Linux</span>
+            </div>
+            <pre>chmod +x start-demo.sh stop-demo.sh    # once only
+./start-demo.sh</pre>
+            <p style="margin-top:8px;">
+              Four service windows open. The script installs dependencies on first run
+              (30–60 seconds), then health-checks each service and opens your browser automatically.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="run-step reveal reveal-delay-4">
+        <div class="run-step-num">4</div>
+        <div class="run-step-content">
+          <div class="run-step-title">Your browser opens automatically</div>
+          <div class="run-step-body">
+            <pre>http://localhost:5173/demo.html</pre>
+            <p>If it doesn't open, paste that URL into your browser manually.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="run-step reveal reveal-delay-5">
+        <div class="run-step-num">5</div>
+        <div class="run-step-content">
+          <div class="run-step-title">Try both scenarios (each takes under 30 seconds)</div>
+          <div class="run-step-body">
+            <p>
+              <strong style="color:var(--green);">🟢 Fire Scheduled Maintenance</strong> — fires a LOW-severity
+              scheduled maintenance event (device <code class="inline-code">AC-00421</code>, warranty ACTIVE).
+              Watch the 5-step flow light up; Cognigy decides auto-resolve. A mock customer SMS appears. Proves the happy path.
+            </p>
+            <p style="margin-top:8px;">
+              <strong style="color:var(--red);">🔴 Fire Critical Fault</strong> — fires a CRITICAL-severity
+              compressor failure (device <code class="inline-code">AC-00888</code>, warranty ACTIVE).
+              Flow lights up in red; Cognigy escalates to agent. Agent sees full device context, confirms warranty ACTIVE,
+              books a repair technician and a customer SMS notification is sent. Proves the escalation + resolution path.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="run-step reveal reveal-delay-6">
+        <div class="run-step-num">6</div>
+        <div class="run-step-content">
+          <div class="run-step-title">Stop everything</div>
+          <div class="run-step-body">
+            <div class="os-tabs"><span class="os-label win">Windows</span></div>
+            <pre>stop-demo.bat</pre>
+            <div class="os-tabs" style="margin-top:10px;"><span class="os-label unix">Mac / Linux</span></div>
+            <pre>./stop-demo.sh</pre>
+            <p style="margin-top:8px;">Kills all processes on ports 3001 / 3002 / 3003 / 5173.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Troubleshooting accordion -->
+    <div class="reveal" style="margin-top:8px;">
+      <h3 style="font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:12px;">
+        Troubleshooting
+        <span style="font-size:12px;font-weight:400;color:var(--text-muted);margin-left:8px;">
+          — see <a href="https://github.com" style="color:var(--brand-blue);">README.md</a> for the most current version
+        </span>
+      </h3>
+      <div class="accordion">
+
+        <div class="accordion-item">
+          <div class="accordion-header" role="button" tabindex="0" aria-expanded="false">
+            <span>"Node.js not found" on startup</span>
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <div class="accordion-body">
+            Install Node.js 18+ from <strong>nodejs.org</strong> and re-run the script. The LTS installer bundles npm automatically.
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" role="button" tabindex="0" aria-expanded="false">
+            <span>Port already in use (EADDRINUSE :3001 / :3002 / :3003 / :5173)</span>
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <div class="accordion-body">
+            Run <code class="inline-code">stop-demo.bat</code> (Windows) or <code class="inline-code">./stop-demo.sh</code> (Mac/Linux) first to kill stale processes, then restart.
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" role="button" tabindex="0" aria-expanded="false">
+            <span>Browser didn't open automatically</span>
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <div class="accordion-body">
+            Paste <strong>http://localhost:5173/demo.html</strong> into your browser manually. The demo runs fine regardless of auto-open.
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" role="button" tabindex="0" aria-expanded="false">
+            <span>Timeline shows "Cannot reach Event Normalizer"</span>
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <div class="accordion-body">
+            The services haven't finished starting yet — wait 10 seconds and try again. Check the service windows for any error output.
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" role="button" tabindex="0" aria-expanded="false">
+            <span>npm install takes a very long time</span>
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <div class="accordion-body">
+            First-run only (30–60 seconds on a normal connection). Subsequent runs skip this step entirely. If it hangs, check your internet connection.
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <div class="accordion-header" role="button" tabindex="0" aria-expanded="false">
+            <span>npx serve hangs or shows an error</span>
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </div>
+          <div class="accordion-body">
+            <code class="inline-code">npx</code> downloads the <code class="inline-code">serve</code> package on first use — requires internet.
+            Run <code class="inline-code">npx serve web-ui -p 5173</code> manually from the submission folder, then open <code class="inline-code">http://localhost:5173/demo.html</code>.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ─────────────────────────────────────────────────────
+       SECTION 7: PRESENTATION
+  ───────────────────────────────────────────────────── -->
+  <section id="presentation">
+
+    <div class="reveal">
+      <p class="section-label">Deck</p>
+      <h2 class="section-title">Presentation</h2>
+      <p class="section-intro">Download the full pitch deck or flip through the slides without leaving this page.</p>
+    </div>
+
+    <div class="presentation-download reveal">
+      <div class="dl-title">Sparkathon 2026 — CXone IoT Intelligence Hub</div>
+      <div class="dl-sub">CXone IoT Intelligence Hub · Brij Mohan, Vinayak Bhati</div>
+      <a class="btn btn-download" href="assets/presentation.pptx" download="CXone_Device_Signal_Bridge_Sparkathon2026.pptx">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Presentation (.pptx)
+      </a>
+    </div>
+
+    <!-- Slide carousel placeholder (becomes active when user drops slide images into assets/slides/) -->
+    <div class="card reveal" id="slide-carousel" style="padding:36px 24px;text-align:center;display:none;">
+      <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:16px;">
+        <button id="slide-prev" class="btn btn-outline" aria-label="Previous slide" style="padding:8px 14px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <img id="slide-img" src="" alt="Presentation slide" style="max-width:100%;max-height:480px;border-radius:4px;border:1px solid var(--border-light);box-shadow:var(--shadow-card);" />
+        <button id="slide-next" class="btn btn-outline" aria-label="Next slide" style="padding:8px 14px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+      <div id="slide-dots" style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap;"></div>
+      <div id="slide-counter" style="font-size:12px;color:var(--text-muted);margin-top:8px;"></div>
+    </div>
+
+    <p class="reveal" style="font-size:13px;color:var(--text-muted);margin-top:16px;text-align:center;">
+      To enable the in-page slide viewer: export deck slides as PNG images named
+      <code class="inline-code">slide-01.png</code>, <code class="inline-code">slide-02.png</code>, …
+      and drop them into <code class="inline-code">docs/assets/slides/</code>.
+    </p>
+
+  </section>
+
+</main>
+
+<!-- ══════════════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════════════ -->
+<footer>
+  <div style="max-width:1200px;margin:0 auto;padding:0 24px;">
+    <section id="footer-section">
+
+      <div class="reveal">
+        <p class="section-label">Business Impact</p>
+        <h2 class="section-title">The numbers that matter</h2>
+      </div>
+
+      <div class="footer-stats">
+        <div class="footer-stat reveal reveal-delay-1">
+          <div class="footer-stat-number">40%</div>
+          <div class="footer-stat-label">Reduction in inbound call volume</div>
+        </div>
+        <div class="footer-stat reveal reveal-delay-2">
+          <div class="footer-stat-number">$12B</div>
+          <div class="footer-stat-label">IoT-CX market opportunity by 2028</div>
+        </div>
+        <div class="footer-stat reveal reveal-delay-3">
+          <div class="footer-stat-number">3×</div>
+          <div class="footer-stat-label">Bookings / Resolution vs. human-initiated</div>
+        </div>
+        <div class="footer-stat reveal reveal-delay-4">
+          <div class="footer-stat-number">28%</div>
+          <div class="footer-stat-label">Higher CSAT with proactive service</div>
+        </div>
+      </div>
+
+      <p class="footer-closing reveal">
+        <strong>NICE is uniquely positioned</strong> — CXone + Enlighten AI + proven enterprise scale —
+        to own this space.
+      </p>
+
+      <div class="footer-bar reveal">
+        <span>Brij Mohan &amp; Vinayak Bhati &nbsp;·&nbsp; Sparkathon 2026</span>
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer">View Repository</a>
+      </div>
+
+    </section>
+  </div>
+</footer>
+
+<!-- ── Scripts ── -->
+<script>
+  // Initialize Lucide icons — runs inline so icons appear as fast as possible
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+</script>
+<script src="script.js"></script>
+<!-- Re-run Lucide after DOM is ready in case script.js injected new elements -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  });
+</script>
+
+</body>
+</html>
